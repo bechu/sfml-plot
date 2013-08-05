@@ -1,29 +1,24 @@
-#include <iostream>
-
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
-
+#include <cstdlib>
+#include <ctime>
 #include "scene.h"
 
 int main()
 {
-    sf::ContextSettings settings;
-    settings.antialiasingLevel = 8;
+    srand (time(NULL));
 
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML plot", sf::Style::Default, settings);
+    // Create the sfml window
+    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML plot", sf::Style::Default);
 
-    sf::plot::Scene scene(900, 600);
+    // Create a new scene and change the position
+    sf::plot::Scene scene(400*1.1, 400*1.1);
+    scene.setPosition(100, 100);
 
+    // Create a new curve call random
     sf::plot::Curve &curve = scene.CreateCurve("random");
 
-    curve.Plot(0, 0);
-    curve.Plot(.1, .5);
-    curve.Plot(.2, .3);
-    curve.Plot(.3, .3);
-    curve.Plot(.35, .8);
-    curve.Plot(1, .1);
-    //curve.Plot(100);
-    //curve.Plot(400);
+    sf::Clock clock;
 
     while (window.isOpen())
     {
@@ -34,12 +29,22 @@ int main()
                 window.close();
         }
 
+        // each 200 ms, a new random value is add
+        if(clock.getElapsedTime().asMilliseconds() > 200)
+        {
+            curve.Plot(rand() % 20 + 1-10);
+            clock.restart();
+        }
+
         window.clear();
+
+        // Build the scene
         scene.Build();
+        // Draw the scene
         window.draw(scene);
+
         window.display();
     }
 
     return 0;
 }
-

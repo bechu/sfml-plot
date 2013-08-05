@@ -7,7 +7,7 @@ namespace plot
 
 Grid::Grid()
 {
-    color_ = sf::Color(100, 100, 100);
+    color_ = sf::Color(150, 150, 150);
 }
 
 void Grid::draw(sf::RenderTarget& target, sf::RenderStates states) const
