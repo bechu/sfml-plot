@@ -45,9 +45,7 @@ void Curve::Compute(float &min, float &max)
         float distance = fabs(max-min);
         if(distance == 0) distance = 1;
 
-        float xoffset = ceil(float(size_.x) / float(data_.size()-1));
-        if(fabs(xoffset * (data_.size()-1) - size_.x) > xoffset)
-            xoffset -= 1;
+        float xoffset = ceil(float(size_.x) / float(data_.size()));
 
 
         int i = 0;
@@ -62,6 +60,7 @@ void Curve::Compute(float &min, float &max)
     }
 }
 
+
 void Curve::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     states.transform *= getTransform();
@@ -71,7 +70,6 @@ void Curve::draw(sf::RenderTarget& target, sf::RenderStates states) const
         vertices.push_back(sf::Vertex(it->position, fillColor_));
         vertices.push_back(sf::Vertex(sf::Vector2f(it->position.x, size_.y), fillColor_));
     }
-
     target.draw(&vertices[0], vertices.size(), sf::TrianglesStrip, states);
     target.draw(&line_[0], line_.size(), sf::LinesStrip, states);
 }

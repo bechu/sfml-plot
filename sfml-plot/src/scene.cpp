@@ -10,8 +10,17 @@ Scene::Scene(int width, int height)
     size_.x = width;
     size_.y = height;
 
-    graphSize_.x = width-width*kLegendSize;
-    graphSize_.y = height-height*kLegendSize;
+    graphSize_.x = width-width*(kLegendSize/100.0);
+    graphSize_.y = height-height*(kLegendSize/100.0);
+
+    while(true)
+    {
+        int test = graphSize_.x / 100;
+        if(test * 100 != graphSize_.x)
+            graphSize_.x--;
+        else
+            break;
+    }
 
     grid_.CreateGrid(graphSize_.x, graphSize_.y);
     xaxis_.SetSize(graphSize_);
@@ -52,7 +61,7 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
     target.draw(xaxis_, states.transform.translate(10, 0));
     //target.draw(yaxis_, states);
 
-    states.transform.translate(size_.x*kLegendSize/2, size_.y*kLegendSize/2);
+    states.transform.translate(size_.x*(kLegendSize/100.0)/2, size_.y*(kLegendSize/100.0)/2);
     target.draw(grid_, states);
 
     for(std::map<std::string, Curve>::const_iterator it=curves_.begin();it!=curves_.end();++it)

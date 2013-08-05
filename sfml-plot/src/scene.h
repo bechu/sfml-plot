@@ -39,7 +39,7 @@ private:
     std::map<std::string, Curve> curves_;
     sf::Vector2i graphSize_;
 
-    static const float kLegendSize = 0.1;
+    static const int kLegendSize = 10;
     static const int kBorderSize = 2;
 
 };
