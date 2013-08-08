@@ -13,12 +13,14 @@ class Grid : public sf::Drawable, public sf::Transformable
 {
 public:
     Grid();
-    void CreateGrid(int x, int y);
+    void CreateGrid(const Vector2f &size);
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     std::vector<sf::Vertex> vertices_;
     sf::Color color_;
-    static const int kGranularity_ = 10;
+    // means that cut the grid in kPart
+    static const int kPart = 4;
+    sf::Vector2f size_;
 };
 
 }

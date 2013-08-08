@@ -7,32 +7,39 @@ namespace plot
 
 Grid::Grid()
 {
-    color_ = sf::Color(150, 150, 150);
+  color_ = sf::Color(150, 150, 150);
 }
 
 void Grid::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    states.transform *= getTransform();
-    target.draw(&vertices_[0], vertices_.size(), sf::Lines, states);
+  states.transform *= getTransform();
+  target.draw(&vertices_[0], vertices_.size(), sf::Lines, states);
+
+  sf::RectangleShape rectangle(sf::Vector2f(size_.x, size_.y));
+  rectangle.setFillColor(sf::Color(0, 0, 0, 0));
+  rectangle.setOutlineColor(sf::Color(0, 0, 0));
+  rectangle.setOutlineThickness(1);
+  target.draw(rectangle, states);
 }
 
-void Grid::CreateGrid(int w, int h)
+void Grid::CreateGrid(const sf::Vector2f &size)
 {
-    vertices_.clear();
+  size_ = size;
+  vertices_.clear();
 
-    double offset = w * (kGranularity_) / 100.0;
-    for(int i=0;i<=kGranularity_;i++)
-    {
-        vertices_.push_back(sf::Vertex(sf::Vector2f(i*offset, 0), color_));
-        vertices_.push_back(sf::Vertex(sf::Vector2f(i*offset, h), color_));
-    }
+  float offset = size_.y / kPart;
+  for(int i=1;i<kPart;i++)
+  {
+    vertices_.push_back(sf::Vertex(sf::Vector2f(0, i*offset), color_));
+    vertices_.push_back(sf::Vertex(sf::Vector2f(size_.x, i*offset), color_));
+  }
 
-    offset = h * (kGranularity_) / 100.0;
-    for(int i=0;i<=kGranularity_;i++)
-    {
-        vertices_.push_back(sf::Vertex(sf::Vector2f(0, i*offset), color_));
-        vertices_.push_back(sf::Vertex(sf::Vector2f(w, i*offset), color_));
-    }
+  offset = size_.x / kPart;
+  for(int i=1;i<kPart;i++)
+  {
+    vertices_.push_back(sf::Vertex(sf::Vector2f(i*offset, 0), color_));
+    vertices_.push_back(sf::Vertex(sf::Vector2f(i*offset, size_.y), color_));
+  }
 }
 
 }

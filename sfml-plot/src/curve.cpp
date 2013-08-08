@@ -1,4 +1,3 @@
-#include <limits>
 #include <cmath>
 
 #include "curve.h"
@@ -8,17 +7,12 @@ namespace sf
 namespace plot
 {
 
-Curve::Curve(const sf::Vector2i &size) : size_(size)
+Curve::Curve(const Vector2f &size) : size_(size)
 {
-    Color(sf::Color(19, 13, 200));
+  setColor(sf::Color(19, 13, 200));
 }
 
-void Curve::Plot(float x, float y)
-{
-  line_.push_back(sf::Vertex(sf::Vector2f(x*size_.x, y*size_.y), sf::Color(200, 0, 0)));
-}
-
-void Curve::Plot(float value)
+void Curve::addValue(double value)
 {
   data_.push_back(value);
   if(data_.size() > 100)
@@ -27,37 +21,36 @@ void Curve::Plot(float value)
   }
 }
 
-void Curve::Compute(float &min, float &max)
+void Curve::build(sf::Vector2f &rangex, sf::Vector2f &rangey)
 {
-  if(data_.size() > 4)
+  rangex.x = 0;
+  rangex.y = data_.size();
+  if(data_.size() > 1)
   {
     // calculate the min and max for the inputs value
-    max = std::numeric_limits<double>::min();
-    min = std::numeric_limits<double>::max();
-    for(std::list<float>::iterator it=data_.begin();it!=data_.end();++it)
+    for(std::list<double>::iterator it=data_.begin();it!=data_.end();++it)
     {
-      if(*it > max)
-        max = *it;
-      if(*it < min)
-        min = *it;
+      if(*it > rangey.y)
+        rangey.y = *it;
+      if(*it < rangey.x)
+        rangey.x = *it;
     }
 
     line_.clear();
-    float distance = fabs(max-min);
+    double distance = fabs(rangey.y-rangey.x);
     if(distance == 0) distance = 1;
-
 
     int xoffset = size_.x / (data_.size());
 
-    while(xoffset * data_.size() < size_.x+xoffset)
+    while(xoffset * data_.size() < (size_.x+xoffset))
       xoffset++;
 
     int i = 0;
-    float x = 0;
-    for(std::list<float>::reverse_iterator it=data_.rbegin();it!=data_.rend();++it)
+    double x = 0;
+    for(std::list<double>::reverse_iterator it=data_.rbegin();it!=data_.rend();++it)
     {
       x = size_.x - (i++ * xoffset);
-      float y = size_.y - ((*it-min) / distance * size_.y);
+      double y = size_.y - ((*it-rangey.x) / distance * size_.y);
       if(x < 0)
       {
         // normally with have to calcule the real value of y

@@ -15,28 +15,27 @@ class Curve : public sf::Drawable, public sf::Transformable
 {
 public:
     Curve() {}
-    Curve(const sf::Vector2i &size);
-    void Label(const std::string &label);
-    void Color(const sf::Color &color);
-    void Plot(float x, float y);
-    void Plot(float value);
-    void Compute(float &min, float &max);
+    Curve(const sf::Vector2f &size);
+    void setLabel(const std::string &label);
+    void setColor(const sf::Color &color);
+    void addValue(double value);
+    void build(sf::Vector2f &rangex, sf::Vector2f &rangey);
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     std::string label_;
     sf::Color color_;
     sf::Color fillColor_;
-    std::list<float> data_;
+    std::list<double> data_;
     std::vector<sf::Vertex> line_;
-    sf::Vector2i size_;
+    sf::Vector2f size_;
 };
 
-inline void Curve::Label(const std::string &label)
+inline void Curve::setLabel(const std::string &label)
 {
     label_ = label;
 }
 
-inline void Curve::Color(const sf::Color &color)
+inline void Curve::setColor(const sf::Color &color)
 {
    color_ = color;
    fillColor_ = color;

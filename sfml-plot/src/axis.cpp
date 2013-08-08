@@ -1,4 +1,5 @@
 #include <sstream>
+#include <cmath>
 
 #include "axis.h"
 
@@ -7,39 +8,56 @@ namespace sf
 namespace plot
 {
 
-Axis::Axis()
+Axis::Axis() : font_(0)
 {
-    if (!font_.loadFromFile("./font.ttf"))
-    {
-        throw ;
-    }
-
-    max_.setFont(font_);
-    max_.setCharacterSize(16);
-    max_.setColor(sf::Color::Black);
-    min_.setFont(font_);
-    min_.setCharacterSize(16);
-    min_.setColor(sf::Color::Black);
-}
-
-void Axis::Compute(float min, float max)
-{
-    std::stringstream ss;
-    ss << min;
-    min_.setString(ss.str());
-
-    ss.str(std::string());
-    ss << max;
-    max_.setString(ss.str());
-
-    min_.setPosition(sf::Vector2f(0, size_.y));
 }
 
 void Axis::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    states.transform *= getTransform();
-    target.draw(min_, states);
-    target.draw(max_, states);
+  if(!font_) return ;
+  states.transform *= getTransform();
+  for(std::vector<sf::Text>::const_iterator it=numbers_.begin();it!=numbers_.end();++it)
+    target.draw(*it, states);
+  target.draw(label_, states);
+}
+
+void Axis::build(const Vector2f &range)
+{
+  if(!font_) return ;
+  numbers_.clear();
+
+  double distance = fabs(range.y-range.x);
+  if(distance == 0) distance = 1;
+
+  float decx = size_ / kPart;
+
+  double offset = distance / kPart;
+  for(int i=0;i<=kPart;i++)
+  {
+    sf::Text text;
+    text.setFont(*font_);
+    text.setCharacterSize(16);
+    text.setColor(sf::Color::Black);
+    text.setPosition(i*decx, 0);
+    std::stringstream ss;
+    ss << range.x + offset * i;
+    text.setString(ss.str());
+    numbers_.push_back(text);
+  }
+}
+
+void Axis::defineLabel()
+{
+  if(!font_) return ;
+  label_.setFont(*font_);
+  label_.setCharacterSize(16);
+  label_.setColor(sf::Color::Black);
+  label_.setString(name_);
+
+  if(getRotation() != 0)
+    label_.setPosition(size_/2-name_.size()*5, -20);
+  else
+    label_.setPosition(size_/2-name_.size()*5, 20);
 }
 
 }
