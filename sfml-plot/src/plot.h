@@ -22,6 +22,8 @@ public:
   void grid(bool enable);
   void draw();
   Curve &createCurve(const std::string &name);
+  bool hasCurve(const std::string &name);
+  Curve &getCurve(const std::string &name);
 
   void build();
 

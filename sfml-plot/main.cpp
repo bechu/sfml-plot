@@ -11,7 +11,7 @@ int main()
   srand (time(NULL));
 
   // Create the sfml window
-  sf::RenderWindow window(sf::VideoMode(800, 600), "SFML plot", sf::Style::Default);
+  sf::RenderWindow window(sf::VideoMode(400, 400), "SFML plot", sf::Style::Default);
 
   // Create a new plot with the size and the title
   sf::plot::Plot plot(sf::Vector2f(400, 400), "test1");

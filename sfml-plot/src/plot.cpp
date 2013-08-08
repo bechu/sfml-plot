@@ -37,6 +37,18 @@ Plot::Plot(const Vector2f &size, const std::string &title) : title_(title)
   render_.display();
 }
 
+bool Plot::hasCurve(const std::string &name)
+{
+  return curves_.find(name) != curves_.end();
+}
+
+Curve &Plot::getCurve(const std::string &name)
+{
+  if(hasCurve(name) == false)
+    return createCurve(name);
+  return curves_[name];
+}
+
 Curve &Plot::createCurve(const std::string &name)
 {
   curves_[name] = Curve(graphSize_);

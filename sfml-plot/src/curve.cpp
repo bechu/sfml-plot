@@ -8,7 +8,7 @@ namespace sf
 namespace plot
 {
 
-Curve::Curve(const Vector2f &size) : size_(size)
+Curve::Curve(const Vector2f &size) : size_(size), fill_(true)
 {
   setColor(sf::Color(19, 13, 200));
 }
@@ -85,13 +85,16 @@ void Curve::build(sf::Vector2f &rangex, sf::Vector2f &rangey)
 void Curve::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
   states.transform *= getTransform();
-  std::vector<sf::Vertex> vertices;
-  for(std::vector<sf::Vertex>::const_iterator it=line_.begin();it!=line_.end();++it)
+  if(fill_)
   {
-    vertices.push_back(sf::Vertex(it->position, fillColor_));
-    vertices.push_back(sf::Vertex(sf::Vector2f(it->position.x, size_.y), fillColor_));
+    std::vector<sf::Vertex> vertices;
+    for(std::vector<sf::Vertex>::const_iterator it=line_.begin();it!=line_.end();++it)
+    {
+      vertices.push_back(sf::Vertex(it->position, fillColor_));
+      vertices.push_back(sf::Vertex(sf::Vector2f(it->position.x, size_.y), fillColor_));
+    }
+    target.draw(&vertices[0], vertices.size(), sf::TrianglesStrip, states);
   }
-  target.draw(&vertices[0], vertices.size(), sf::TrianglesStrip, states);
   target.draw(&line_[0], line_.size(), sf::LinesStrip, states);
 }
 

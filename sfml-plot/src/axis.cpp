@@ -40,7 +40,7 @@ void Axis::build(const Vector2f &range)
     text.setCharacterSize(16);
     text.setColor(sf::Color::Black);
     std::stringstream ss;
-    ss << std::setprecision(2) << range.x + offset * i;
+    ss << std::setprecision(3) << range.x + offset * i;
     text.setString(ss.str());
     text.setPosition(i*decx-ss.str().size()*2, 0);
     numbers_.push_back(text);
