@@ -18,7 +18,7 @@ private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     std::vector<sf::Vertex> vertices_;
     sf::Color color_;
-    static const double kGranularity_ = 10;
+    static const int kGranularity_ = 10;
 };
 
 }

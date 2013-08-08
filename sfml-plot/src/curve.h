@@ -2,6 +2,7 @@
 #define SFML_PLOT_CURVE_H
 
 #include <vector>
+#include <list>
 #include <string>
 #include <SFML/Graphics.hpp>
 
@@ -18,11 +19,14 @@ public:
     void Label(const std::string &label);
     void Color(const sf::Color &color);
     void Plot(float x, float y);
+    void Plot(float value);
+    void Compute(float &min, float &max);
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     std::string label_;
     sf::Color color_;
-    //std::vector<float> data_;
+    sf::Color fillColor_;
+    std::list<float> data_;
     std::vector<sf::Vertex> line_;
     sf::Vector2i size_;
 };
@@ -35,6 +39,8 @@ inline void Curve::Label(const std::string &label)
 inline void Curve::Color(const sf::Color &color)
 {
    color_ = color;
+   fillColor_ = color;
+   fillColor_.a = 100;
 }
 
 }

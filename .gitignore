@@ -11,5 +11,9 @@
 *.lai
 *.la
 *.a
+<<<<<<< HEAD
 *.txt.user
 
+=======
+*.user
+>>>>>>> 482da75d8abb1f3c78a3816455b8bd3b146e6b88

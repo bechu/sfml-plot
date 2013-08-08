@@ -37,8 +37,11 @@ private:
     sf::Vector2i size_;
     sf::RenderTexture render_;
     std::map<std::string, Curve> curves_;
+    sf::Vector2i graphSize_;
 
-    static const float kLegendSize = 0.1;
+    static const int kLegendSize = 10;
+    static const int kBorderSize = 2;
+
 };
 
 inline void Scene::BackgroundColor(const sf::Color &color)
