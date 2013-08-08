@@ -13,4 +13,6 @@
 *.a
 *.txt.user
 sfml-plot-build
+CMakeCache.txt
+CMakeFiles
 

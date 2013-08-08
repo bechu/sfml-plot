@@ -13,15 +13,6 @@ Scene::Scene(int width, int height)
     graphSize_.x = width-width*(kLegendSize/100.0);
     graphSize_.y = height-height*(kLegendSize/100.0);
 
-    while(true)
-    {
-        int test = graphSize_.x / 100;
-        if(test * 100 != graphSize_.x)
-            graphSize_.x--;
-        else
-            break;
-    }
-
     grid_.CreateGrid(graphSize_.x, graphSize_.y);
     xaxis_.SetSize(graphSize_);
     yaxis_.SetSize(graphSize_);

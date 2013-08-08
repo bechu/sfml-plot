@@ -2,14 +2,15 @@
 SFML PLOT
 ================================
 
-Some classes to plot online data.
+Plot data in few lines in C++
+
 Developpement in progress ...
 
 Two goals :
  * less code to generate the graph
  * follow the sfml guide lines
 
-Now, can plot a 2D graph.
+Now, you can just plot a 1D data.
 
 ## Example
 
