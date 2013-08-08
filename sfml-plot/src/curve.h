@@ -18,14 +18,14 @@ public:
     Curve(const sf::Vector2f &size);
     void setLabel(const std::string &label);
     void setColor(const sf::Color &color);
-    void addValue(double value);
+    void addValue(float value);
     void build(sf::Vector2f &rangex, sf::Vector2f &rangey);
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     std::string label_;
     sf::Color color_;
     sf::Color fillColor_;
-    std::list<double> data_;
+    std::list<float> data_;
     std::vector<sf::Vertex> line_;
     sf::Vector2f size_;
 };

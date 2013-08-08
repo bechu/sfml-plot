@@ -28,7 +28,6 @@ int main()
 
   sf::Clock clock;
 
-  double x = 0;
   while (window.isOpen())
   {
     sf::Event event;
@@ -41,7 +40,7 @@ int main()
     // Rach 200 ms, a new random value is add to the random curve
     if(clock.getElapsedTime().asMilliseconds() > 200)
     {
-      curve.addValue(rand() % 20 + 1-10);
+      curve.addValue(rand() % 20 - 10);
       clock.restart();
     }
 

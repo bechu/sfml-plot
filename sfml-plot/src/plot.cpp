@@ -1,5 +1,4 @@
 #include <limits>
-#include <iostream>
 #include "plot.h"
 
 namespace sf
@@ -81,16 +80,20 @@ void Plot::build()
   sf::Vector2f rangex;
   sf::Vector2f rangey;
 
-  rangex.x = rangey.x = std::numeric_limits<double>::max();
-  rangex.y = rangey.y = std::numeric_limits<double>::min();
+  rangex.x = std::numeric_limits<float>::max();
+  rangey.x = std::numeric_limits<float>::min();
+
+  rangey.x = std::numeric_limits<float>::max();
+  rangey.y = std::numeric_limits<float>::min();
 
   for(std::map<std::string, Curve>::iterator it=curves_.begin();it!=curves_.end();++it)
   {
     Curve &curve = it->second;
     curve.build(rangex, rangey);
   }
+
   xaxis_.build(rangex);
-  yaxis_.build(rangex);
+  yaxis_.build(rangey);
 }
 
 void Plot::setFont(const std::string &filename)

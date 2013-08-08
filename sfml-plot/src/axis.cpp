@@ -1,5 +1,6 @@
 #include <sstream>
 #include <cmath>
+#include <iomanip>
 
 #include "axis.h"
 
@@ -26,22 +27,22 @@ void Axis::build(const Vector2f &range)
   if(!font_) return ;
   numbers_.clear();
 
-  double distance = fabs(range.y-range.x);
+  float distance = fabs(range.y-range.x);
   if(distance == 0) distance = 1;
 
   float decx = size_ / kPart;
 
-  double offset = distance / kPart;
+  float offset = distance / kPart;
   for(int i=0;i<=kPart;i++)
   {
     sf::Text text;
     text.setFont(*font_);
     text.setCharacterSize(16);
     text.setColor(sf::Color::Black);
-    text.setPosition(i*decx, 0);
     std::stringstream ss;
-    ss << range.x + offset * i;
+    ss << std::setprecision(2) << range.x + offset * i;
     text.setString(ss.str());
+    text.setPosition(i*decx-ss.str().size()*2, 0);
     numbers_.push_back(text);
   }
 }

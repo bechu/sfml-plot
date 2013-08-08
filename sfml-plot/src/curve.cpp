@@ -1,4 +1,5 @@
 #include <cmath>
+#include <limits>
 
 #include "curve.h"
 
@@ -12,7 +13,7 @@ Curve::Curve(const Vector2f &size) : size_(size)
   setColor(sf::Color(19, 13, 200));
 }
 
-void Curve::addValue(double value)
+void Curve::addValue(float value)
 {
   data_.push_back(value);
   if(data_.size() > 100)
@@ -25,19 +26,34 @@ void Curve::build(sf::Vector2f &rangex, sf::Vector2f &rangey)
 {
   rangex.x = 0;
   rangex.y = data_.size();
+
   if(data_.size() > 1)
   {
-    // calculate the min and max for the inputs value
-    for(std::list<double>::iterator it=data_.begin();it!=data_.end();++it)
+    if(rangey.x == std::numeric_limits<float>::max())
     {
-      if(*it > rangey.y)
-        rangey.y = *it;
+      rangey.x = data_.front();
+    }
+    if(rangey.y == std::numeric_limits<float>::min())
+    {
+      rangey.y = data_.front();
+    }
+    // calculate the min and max for the inputs value
+    for(std::list<float>::iterator it=data_.begin();it!=data_.end();++it)
+    {
+      // min
       if(*it < rangey.x)
+      {
         rangey.x = *it;
+      }
+      // max
+      if(float(*it) > float(rangey.y))
+      {
+        rangey.y = *it;
+      }
     }
 
     line_.clear();
-    double distance = fabs(rangey.y-rangey.x);
+    float distance = fabs(rangey.y-rangey.x);
     if(distance == 0) distance = 1;
 
     int xoffset = size_.x / (data_.size());
@@ -46,11 +62,12 @@ void Curve::build(sf::Vector2f &rangex, sf::Vector2f &rangey)
       xoffset++;
 
     int i = 0;
-    double x = 0;
-    for(std::list<double>::reverse_iterator it=data_.rbegin();it!=data_.rend();++it)
+    float x = 0;
+    for(std::list<float>::reverse_iterator it=data_.rbegin();it!=data_.rend();++it)
     {
       x = size_.x - (i++ * xoffset);
-      double y = size_.y - ((*it-rangey.x) / distance * size_.y);
+      float realy = (*it - rangey.x) / distance;
+      float y = size_.y - size_.y * realy;
       if(x < 0)
       {
         // normally with have to calcule the real value of y
