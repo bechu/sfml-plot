@@ -11,9 +11,6 @@
 *.lai
 *.la
 *.a
-<<<<<<< HEAD
 *.txt.user
+sfml-plot-build
 
-=======
-*.user
->>>>>>> 482da75d8abb1f3c78a3816455b8bd3b146e6b88
