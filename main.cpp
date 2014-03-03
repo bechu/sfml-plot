@@ -1,13 +1,3 @@
-SFML-PLOT
-=========
-
-Plot float data with SFML.
-
-![](images/screenshot.png?raw=true)
-
-## Corresponding Sample code
-
-```c++
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include <cstdio> // popen
@@ -127,6 +117,3 @@ int main()
 
     return 0;
 }
-
-
-```
