@@ -19,5 +19,6 @@ before_script:
 script:
   - mkdir build
   - cd build
-  - cmake ../src/
+  - cmake ..
   - make -j 4
+
