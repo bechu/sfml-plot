@@ -1,4 +1,4 @@
-SFML-PLOT
+SFML-PLOT [![Build Status](https://travis-ci.org/bechu/sfml-plot.png?branch=master)](https://travis-ci.org/bechu/sfml-plot)
 =========
 
 Plot float data with SFML.
