@@ -16,8 +16,7 @@ public:
         plot_.setTitle("Ping "+dns);
         plot_.setFont("./font.ttf");
         plot_.setXLabel("Number of ping");
-        plot_.setYLabel("milli seconds");
-        plot_.setTitleColor(sf::Color::Blue);
+        plot_.setYLabel("milliseconds");
         plot_.setBackgroundColor(sf::Color(rand()%255, rand()%255, rand()%255));
         plot_.setTitleColor(sf::Color::Black);
         plot_.setPosition(sf::Vector2f(600*location.x, 400*location.y));
@@ -68,6 +67,7 @@ public:
         return std::atof(in.c_str());
     }
 
+private:
     sf::plot::Plot plot_;
     std::string dns_;
 };

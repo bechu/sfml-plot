@@ -3,9 +3,11 @@ SFML-PLOT
 
 Plot float data with SFML.
 
+This is an example of 4 charts :
+
 ![](images/screenshot.png?raw=true)
 
-## Corresponding Sample code
+## Corresponding Sample Code
 
 ```c++
 #include <SFML/System.hpp>
