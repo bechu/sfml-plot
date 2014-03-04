@@ -132,3 +132,7 @@ int main()
 
 
 ```
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/bechu/sfml-plot/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
